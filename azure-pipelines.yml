@@ -17,10 +17,8 @@ steps:
 
 - script: |
     npm install
+    npm run test
     npm run build
   displayName: 'npm install and build'
 
-- task: AngularCLI@0
-  inputs:
-    command: 'build'
-    DisableAnalytics: false
+
