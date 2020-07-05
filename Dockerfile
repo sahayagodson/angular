@@ -1,11 +1,8 @@
-#stage 1
 
-FROM node:latest as node
-WORKDIR /APP
-COPY . .
+FROM node:9.6.1
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+
 RUN npm install -g @angular/cli@1.7.1
-RUN npm run build --prod
+COPY ./usr/src/app
 
-#stage 2
-FROM ubuntu:latest
-COPY --from=node /app/dist/ANGULAR /usr/share/ubuntu/html
