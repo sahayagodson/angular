@@ -3,7 +3,7 @@
 FROM node:latest as node
 WORKDIR /APP
 COPY . .
-RUN npm install
+RUN npm install -g @angular/cli@1.7.1
 RUN npm run build --prod
 
 #stage 2
