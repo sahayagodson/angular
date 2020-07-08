@@ -1,9 +1,13 @@
 
-FROM node:9.6.1
-RUN mkdir /usr/src/app
+FROM node:12.7-alpine AS build
 WORKDIR /usr/src/app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build --prod
+ 
+FROM nginx:1.17.1-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /usr/src/app/dist/project-name /usr/share/nginx/html
 
-RUN npm install -g @angular/cli@1.7.1
-COPY . /usr/src/app
 
-CMD ng serve --host 0.0.0.0 --port 4200
